@@ -25,7 +25,7 @@ public class RegisterUserTest {
         registerPage = new RegisterPage(driver);
     }
 
-    @Test(dataProvider="registerUserData")
+    @Test(dataProvider="RegisterUserData")
     public void verifyUserRegistration(String password,String day,String month,String year) {
         String userName = "User" + CommonFunctions.generateRandomString(5);
         String userEmail = CommonFunctions.generateRandomString(5) + "@gmail.com";

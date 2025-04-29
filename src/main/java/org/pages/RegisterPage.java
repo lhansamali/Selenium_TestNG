@@ -7,6 +7,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.time.Duration;
 
 public class RegisterPage extends BasePage {
@@ -46,16 +47,17 @@ public class RegisterPage extends BasePage {
     WebElement btnCreateAcc;
     @FindBy(xpath = "//h2[@data-qa=\"account-created\"]/following-sibling::p")
     public static WebElement txtAccountCreation;
-    @FindBy(xpath = "//a[text()=\"Continue\"]") public static WebElement btnContinue;
+    @FindBy(xpath = "//a[text()=\"Continue\"]")
+    public static WebElement btnContinue;
 
 
     public RegisterPage(WebDriver driver) {
         super(driver);
-        PageFactory.initElements(driver,this);
+        PageFactory.initElements(driver, this);
     }
 
     public void registerUser(String userName, String userEmail) {
-        WebDriverWait wait =new WebDriverWait(driver, Duration.ofSeconds(30));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         inputName.sendKeys(userName);
         wait.until(ExpectedConditions.elementToBeClickable(inputEmail));
         inputEmail.sendKeys(userEmail);
