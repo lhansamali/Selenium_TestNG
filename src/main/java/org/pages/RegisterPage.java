@@ -12,43 +12,53 @@ import java.time.Duration;
 
 public class RegisterPage extends BasePage {
     @FindBy(name = "name")
-    WebElement inputName;
+    public static WebElement inputName;
     @FindBy(xpath = "//input[@data-qa=\"signup-email\"]")
-    WebElement inputEmail;
+    public static WebElement inputEmail;
     @FindBy(xpath = "//button[text()=\"Signup\"]")
-    WebElement btnsignUp;
+    public static WebElement btnsignUp;
     @FindBy(id = "uniform-id_gender2")
-    WebElement radioBtnTitle_Mrs;
+    public static WebElement radioBtnTitle_Mrs;
     @FindBy(id = "password")
-    WebElement inputPassword;
+    public static WebElement inputPassword;
     @FindBy(id = "days")
-    WebElement drpDownDays;
+    public static WebElement drpDownDays;
     @FindBy(id = "months")
-    WebElement drpDownMonths;
+    public static WebElement drpDownMonths;
     @FindBy(id = "years")
-    WebElement drpDownYears;
+    public static WebElement drpDownYears;
     @FindBy(id = "first_name")
-    WebElement inputFirstName;
+    public static WebElement inputFirstName;
     @FindBy(id = "last_name")
-    WebElement inputLastName;
+    public static WebElement inputLastName;
     @FindBy(id = "address1")
-    WebElement inputAddress1;
+    public static WebElement inputAddress1;
     @FindBy(name = "country")
-    WebElement drpDownCountry;
+    public static WebElement drpDownCountry;
     @FindBy(name = "state")
-    WebElement inputState;
+    public static WebElement inputState;
     @FindBy(name = "city")
-    WebElement inputCity;
+    public static WebElement inputCity;
     @FindBy(name = "zipcode")
-    WebElement inputZipCode;
+    public static WebElement inputZipCode;
     @FindBy(name = "mobile_number")
-    WebElement inputMobileNumber;
+    public static WebElement inputMobileNumber;
     @FindBy(xpath = "//button[text()=\"Create Account\"]")
-    WebElement btnCreateAcc;
+    public static WebElement btnCreateAcc;
     @FindBy(xpath = "//h2[@data-qa=\"account-created\"]/following-sibling::p")
     public static WebElement txtAccountCreation;
     @FindBy(xpath = "//a[text()=\"Continue\"]")
     public static WebElement btnContinue;
+    @FindBy(id = "newsletter")
+    public static WebElement chckNewsLetter;
+    @FindBy(id = "optin")
+    public static WebElement chckSpecialOffers;
+    @FindBy(xpath = "//ul/li[10]/a")
+    public static WebElement menuLoggedIn;
+    @FindBy(xpath = "//ul/li[5]/a")
+    public static WebElement linkDeleteAccount;
+    @FindBy(xpath = "//h2[@data-qa=\"account-deleted\"]/following-sibling::p[1]")
+    public static WebElement txtAccountDeletion;
 
 
     public RegisterPage(WebDriver driver) {
@@ -66,6 +76,8 @@ public class RegisterPage extends BasePage {
     }
 
     public void enterAccountInfo(String password, String day, String month, String year) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
+        wait.until(ExpectedConditions.visibilityOf(radioBtnTitle_Mrs));
         radioBtnTitle_Mrs.click();
         inputPassword.sendKeys(password);
         Select days = new Select(drpDownDays);
@@ -76,6 +88,9 @@ public class RegisterPage extends BasePage {
 
         Select years = new Select(drpDownYears);
         years.selectByVisibleText(year);
+
+        chckNewsLetter.click();
+        chckSpecialOffers.click();
 
     }
 
@@ -98,6 +113,10 @@ public class RegisterPage extends BasePage {
 
     public void clickSignUp() {
         btnsignUp.click();
+    }
+
+    public void deleteAccount() {
+        linkDeleteAccount.click();
     }
 
 }

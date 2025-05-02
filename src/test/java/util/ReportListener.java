@@ -9,13 +9,16 @@ import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
+import java.time.LocalTime;
+
 public class ReportListener implements ITestListener {
     public static ExtentReports extentReports;
     public static ThreadLocal<ExtentTest> extentTestThreadLocal = new ThreadLocal<>();
 
     @Override
     public void onStart(ITestContext context) {
-        String reportPath = System.getProperty("user.dir") + "/target/extentReport.html";
+        String localTime = LocalTime.now().toString().replace(":", "-").replace(".", "");
+        String reportPath = System.getProperty("user.dir") + "/target/report_" + localTime + ".html";
         ExtentSparkReporter extentSparkReporter = new ExtentSparkReporter(reportPath);
 
 
