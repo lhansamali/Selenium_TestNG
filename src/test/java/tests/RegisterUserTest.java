@@ -2,12 +2,14 @@ package tests;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.Select;
 import org.pages.CommonFunctions;
+import org.pages.MainPage;
 import org.pages.RegisterPage;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 import java.util.ArrayList;
@@ -16,25 +18,21 @@ import java.util.List;
 
 import static org.pages.BasePage.BASE_URL;
 import static org.pages.RegisterPage.*;
+import static org.testdata.RegisterUserData.*;
 
 public class RegisterUserTest {
     WebDriver driver;
     RegisterPage registerPage;
+    MainPage mainPage;
     SoftAssert softAssert;
-    String firstName;
-    String lastName;
-    String address;
-
 
     @BeforeTest
     public void setUp() {
         softAssert = new SoftAssert();
-        ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.addArguments("--disable-notifications");
-        driver = new ChromeDriver(chromeOptions);
-        driver.manage().window().maximize();
-        driver.get(BASE_URL);
+        driver = initiateBrowser(BASE_URL);
         registerPage = new RegisterPage(driver);
+        mainPage = new MainPage(driver);
+
 
     }
 
@@ -66,15 +64,15 @@ public class RegisterUserTest {
         btnContinue.click();
 
         //Verify User Name
-        softAssert.assertTrue(menuLoggedIn.getText().contains(userName));
+        softAssert.assertTrue(MainPage.menuLoggedIn.getText().contains(userName));
         softAssert.assertAll();
     }
 
     @Test(dependsOnMethods = "verifyUserRegistration")
     public void deleteAccount() {
-        registerPage.deleteAccount();
+        mainPage.deleteAccount();
         //Verify account deletion
-        softAssert.assertEquals(txtAccountDeletion.getText(), "Your account has been permanently deleted!");
+        softAssert.assertEquals(MainPage.txtAccountDeletion.getText(), "Your account has been permanently deleted!");
         btnContinue.click();
         softAssert.assertAll();
     }
@@ -94,22 +92,20 @@ public class RegisterUserTest {
     private record Result(List<String> yearOptions, List<String> sortedYears) {
     }
 
-    private record UserInfo(String firstName, String lastName, String address, String country, String state,
-                            String city, String zipCode, String mobile) {
+    record UserInfo(String firstName, String lastName, String address, String country, String state,
+                    String city, String zipCode, String mobile) {
     }
 
-    private record AccountInfo(String password, String day, String month, String year) {
+    record AccountInfo(String password, String day, String month, String year) {
     }
 
     @DataProvider(name = "RegisterUserData")
     public Object[][] registerUserData() {
-        firstName = "FirstName" + CommonFunctions.generateRandomString(3);
-        lastName = "FirstName" + CommonFunctions.generateRandomString(3);
-        address = "Address_" + CommonFunctions.generateRandomString(7);
+
         return new Object[][]{
                 {
-                        new AccountInfo(CommonFunctions.generateRandomString(10), "2", "March", "1994"),
-                        new UserInfo(firstName, lastName, address, "Australia", "West", "Sydney", "8888", "666666666")
+                        new AccountInfo(password(), "2", "March", "1994"),
+                        new UserInfo(firstName(), lastName(), address(), country, state, city, zipCode, mobile)
 
                 }
         };

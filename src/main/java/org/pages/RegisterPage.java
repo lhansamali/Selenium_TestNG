@@ -53,12 +53,7 @@ public class RegisterPage extends BasePage {
     public static WebElement chckNewsLetter;
     @FindBy(id = "optin")
     public static WebElement chckSpecialOffers;
-    @FindBy(xpath = "//ul/li[10]/a")
-    public static WebElement menuLoggedIn;
-    @FindBy(xpath = "//ul/li[5]/a")
-    public static WebElement linkDeleteAccount;
-    @FindBy(xpath = "//h2[@data-qa=\"account-deleted\"]/following-sibling::p[1]")
-    public static WebElement txtAccountDeletion;
+
 
 
     public RegisterPage(WebDriver driver) {
@@ -115,8 +110,6 @@ public class RegisterPage extends BasePage {
         btnsignUp.click();
     }
 
-    public void deleteAccount() {
-        linkDeleteAccount.click();
-    }
+
 
 }
