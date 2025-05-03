@@ -6,10 +6,8 @@ import org.openqa.selenium.support.ui.Select;
 import org.pages.CommonFunctions;
 import org.pages.MainPage;
 import org.pages.RegisterPage;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
+import org.testdata.LoginUserData;
+import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
 
 import java.util.ArrayList;
@@ -17,6 +15,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.pages.BasePage.BASE_URL;
+import static org.pages.MainPage.linkSignUpLogin;
 import static org.pages.RegisterPage.*;
 import static org.testdata.RegisterUserData.*;
 
@@ -32,8 +31,6 @@ public class RegisterUserTest {
         driver = initiateBrowser(BASE_URL);
         registerPage = new RegisterPage(driver);
         mainPage = new MainPage(driver);
-
-
     }
 
     @Test(dataProvider = "RegisterUserData")
@@ -71,9 +68,20 @@ public class RegisterUserTest {
     @Test(dependsOnMethods = "verifyUserRegistration")
     public void deleteAccount() {
         mainPage.deleteAccount();
+        CommonFunctions.wait(driver, MainPage.txtAccountDeletion);
         //Verify account deletion
         softAssert.assertEquals(MainPage.txtAccountDeletion.getText(), "Your account has been permanently deleted!");
         btnContinue.click();
+        softAssert.assertAll();
+    }
+
+    @Test(dependsOnMethods = "deleteAccount")
+    public void registerWithExistingEmail() {
+        linkSignUpLogin.click();
+        String userName = "User" + CommonFunctions.generateRandomString(5);
+        softAssert.assertEquals(lblNewSignUp.getText(), "New User Signup!");
+        registerPage.registerUser(userName, LoginUserData.USER_EMAIL);
+        softAssert.assertEquals(lblExistingEmailError.getText(), "Email Address already exist!");
         softAssert.assertAll();
     }
 

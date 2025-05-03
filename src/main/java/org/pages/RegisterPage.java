@@ -53,6 +53,11 @@ public class RegisterPage extends BasePage {
     public static WebElement chckNewsLetter;
     @FindBy(id = "optin")
     public static WebElement chckSpecialOffers;
+    @FindBy(xpath = "//div[@class=\"signup-form\"]/h2")
+    public static  WebElement lblNewSignUp;
+    @FindBy(xpath = "//form[@action=\"/signup\"]/child::p")
+    public static  WebElement lblExistingEmailError;
+
 
 
 
