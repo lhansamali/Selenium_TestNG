@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +14,9 @@ import java.util.Map;
 public class IPLMatches {
     public static void main(String[] args) {
         WebDriverManager.chromedriver().setup();
+
         WebDriver driver=new ChromeDriver();
+
 
         driver.get("https://www.iplt20.com/matches/points-table");
         WebElement table=driver.findElement(By.xpath("//div[@class=\"points-table-page\"]//table[@class=\"ih-td-tab\"]"));
@@ -28,8 +31,13 @@ public class IPLMatches {
                 scoreMap.put(teamName,nrrText);
             }
         }
-        System.out.println(scoreMap);
+        getScoreDescendingOrder(scoreMap);
         driver.quit();
+    }
+    public static void getScoreDescendingOrder(Map<String,Double> map){
+       List<Map.Entry<String,Double>> mapList=new ArrayList<>(map.entrySet());
+       mapList.sort(Map.Entry.<String,Double>comparingByValue().reversed());
+       System.out.println(mapList);
     }
 
 }
