@@ -8,7 +8,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 public class BasePage {
     public static String BASE_URL = "https://www.automationexercise.com/login";
 
-    protected WebDriver driver;
+    protected static WebDriver driver;
 
     static {
         // Static block - executed when class loads
@@ -16,7 +16,7 @@ public class BasePage {
     }
 
     public BasePage(WebDriver driver) {
-        this.driver = driver;
+        BasePage.driver = driver;
     }
 
     public static WebDriver initiateBrowser(String baseURL) {

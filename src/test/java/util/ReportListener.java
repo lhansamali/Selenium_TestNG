@@ -45,6 +45,7 @@ public class ReportListener implements ITestListener {
     @Override
     public void onTestFailure(ITestResult result) {
         extentTestThreadLocal.get().log(Status.FAIL, result.getThrowable());
+        ScreenShotsUtil.takeScreenShots(result.getMethod().getMethodName());
 
     }
 

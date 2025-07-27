@@ -7,9 +7,9 @@ import org.testng.IRetryAnalyzer;
 import org.testng.ITestResult;
 
 @Log4j
-public class RetryFailedTests implements IRetryAnalyzer {
+public class RetryFailedTestsUtil implements IRetryAnalyzer {
 
-    private static final Logger log = LoggerFactory.getLogger(RetryFailedTests.class);
+    private static final Logger log = LoggerFactory.getLogger(RetryFailedTestsUtil.class);
     private int reRetryCount = 0;
     private static final int MAX_RETRY_COUNT = 2;
 
