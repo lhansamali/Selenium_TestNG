@@ -7,11 +7,11 @@
         <listener class-name="util.RetryListener"/>
     </listeners>
 
-    <!--<test name="Register User Test">
+    <test name="Register User Test">
         <classes>
             <class name="tests.RegisterUserTest"/>
         </classes>
-    </test>-->
+    </test>
     <test name="Login">
         <classes>
             <class name="tests.LoginTest"/>
