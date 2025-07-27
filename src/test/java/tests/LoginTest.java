@@ -1,7 +1,7 @@
 package tests;
 
 import org.openqa.selenium.WebDriver;
-import org.pages.CommonFunctions;
+import org.commonmethods.CommonFunctions;
 import org.pages.LoginPage;
 import org.pages.MainPage;
 import org.testdata.LoginUserData;

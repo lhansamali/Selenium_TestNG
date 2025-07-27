@@ -3,7 +3,7 @@ package tests;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
-import org.pages.CommonFunctions;
+import org.commonmethods.CommonFunctions;
 import org.pages.MainPage;
 import org.pages.RegisterPage;
 import org.testdata.LoginUserData;

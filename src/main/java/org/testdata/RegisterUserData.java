@@ -1,6 +1,6 @@
 package org.testdata;
 
-import org.pages.CommonFunctions;
+import org.commonmethods.CommonFunctions;
 
 public class RegisterUserData {
     public static String firstName(){

@@ -1,4 +1,4 @@
-package org.pages;
+package org.commonmethods;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
