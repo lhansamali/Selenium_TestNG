@@ -4,11 +4,17 @@
 
     <listeners>
         <listener class-name="util.ReportListener"/>
+        <listener class-name="util.RetryListener"/>
     </listeners>
 
     <test name="Register User Test">
         <classes>
             <class name="tests.RegisterUserTest"/>
+        </classes>
+    </test>
+    <test name="Login">
+        <classes>
+            <class name="tests.LoginTest"/>
         </classes>
     </test>
 
