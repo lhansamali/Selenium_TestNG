@@ -4,6 +4,7 @@ import org.commonmethods.CommonFunctions;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.pages.HomePage;
+import org.pages.LoginPage;
 import org.pages.MainPage;
 import org.pages.RegisterPage;
 import org.testdata.LoginUserData;
@@ -16,26 +17,30 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.pages.MainPage.linkSignUpLogin;
+import static org.pages.MainPage.menuLoggedIn;
 import static org.pages.RegisterPage.*;
 import static org.testdata.RegisterUserData.*;
 
-public class RegisterUserTest extends BaseTest{
+public class RegisterUserTest extends BaseTest {
     RegisterPage registerPage;
     MainPage mainPage;
     HomePage homePage;
+    LoginPage loginPage;
+    public static String userName = "User" + CommonFunctions.generateRandomString(5);
+    public static String userEmail = CommonFunctions.generateRandomString(5) + "@gmail.com";
+    private static String userPassword = password();
 
     @BeforeMethod
     public void setUp() {
         registerPage = new RegisterPage(driver);
+        loginPage = new LoginPage(driver);
         mainPage = new MainPage(driver);
-        homePage=new HomePage(driver);
+        homePage = new HomePage(driver);
         homePage.clickOnLoginSignUpLink();
     }
 
-    @Test(dataProvider = "RegisterUserData")
+    @Test(dataProvider = "RegisterUserData", priority = 1)
     public void verifyUserRegistration(AccountInfo accountInfo, UserInfo userInfo) {
-        String userName = "User" + CommonFunctions.generateRandomString(5);
-        String userEmail = CommonFunctions.generateRandomString(5) + "@gmail.com";
         registerPage.registerUser(userName, userEmail);
         registerPage.enterAccountInfo(accountInfo.password(), accountInfo.day(), accountInfo.month(), accountInfo.year());
 
@@ -64,8 +69,10 @@ public class RegisterUserTest extends BaseTest{
         softAssert.assertAll();
     }
 
-    @Test(dependsOnMethods = "verifyUserRegistration")
+    @Test(dependsOnMethods = "verifyUserRegistration", priority = 2)
     public void deleteAccount() {
+        loginPage.login(userEmail, userPassword);
+        CommonFunctions.wait(driver, menuLoggedIn);
         mainPage.deleteAccount();
         CommonFunctions.wait(driver, MainPage.txtAccountDeletion);
         //Verify account deletion
@@ -74,7 +81,7 @@ public class RegisterUserTest extends BaseTest{
         softAssert.assertAll();
     }
 
-    @Test(dependsOnMethods = "deleteAccount")
+    @Test(priority = 3)
     public void registerWithExistingEmail() {
         linkSignUpLogin.click();
         String userName = "User" + CommonFunctions.generateRandomString(5);
@@ -111,7 +118,7 @@ public class RegisterUserTest extends BaseTest{
 
         return new Object[][]{
                 {
-                        new AccountInfo(password(), "2", "March", "1994"),
+                        new AccountInfo(userPassword, "2", "March", "1994"),
                         new UserInfo(firstName(), lastName(), address(), country, state, city, zipCode, mobile)
 
                 }

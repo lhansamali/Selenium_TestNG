@@ -22,5 +22,10 @@
             <class name="tests.ContactUsTest"/>
         </classes>
     </test>
+    <test name="Products">
+        <classes>
+            <class name="tests.ProductsTest"/>
+        </classes>
+    </test>
 
 </suite>

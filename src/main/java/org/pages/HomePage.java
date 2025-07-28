@@ -14,6 +14,8 @@ public class HomePage extends BasePage{
     public static WebElement loginLink;
     @FindBy(linkText = "Contact us")
     public static WebElement contactUsLink;
+    @FindBy(xpath = "//a[@href='/products']")
+    public static WebElement productsLink;
 
     public HomePage(WebDriver driver){
         super(driver);
@@ -26,5 +28,10 @@ public class HomePage extends BasePage{
     }
     public void clickOnContactUsLink(){
         contactUsLink.click();
+    }
+    public void clickOnProductsLink(){
+        WebDriverWait wait=new WebDriverWait(driver, Duration.ofSeconds(3));
+        wait.until(ExpectedConditions.visibilityOf(productsLink));
+        productsLink.click();
     }
 }

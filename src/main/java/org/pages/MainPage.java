@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class MainPage extends BasePage {
-    @FindBy(xpath = "//ul/li[10]/a")
+    @FindBy(partialLinkText = "Logged in")
     public static WebElement menuLoggedIn;
     @FindBy(xpath = "//ul/li[5]/a")
     public static WebElement linkDeleteAccount;
@@ -21,6 +21,7 @@ public class MainPage extends BasePage {
         super(driver);
         PageFactory.initElements(driver, this);
     }
+
     public void deleteAccount() {
         linkDeleteAccount.click();
     }
