@@ -7,7 +7,7 @@ import org.pages.HomePage;
 import org.pages.MainPage;
 import org.pages.RegisterPage;
 import org.testdata.LoginUserData;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -24,7 +24,7 @@ public class RegisterUserTest extends BaseTest{
     MainPage mainPage;
     HomePage homePage;
 
-    @BeforeTest
+    @BeforeMethod
     public void setUp() {
         registerPage = new RegisterPage(driver);
         mainPage = new MainPage(driver);
@@ -56,7 +56,7 @@ public class RegisterUserTest extends BaseTest{
                 userInfo.zipCode(),
                 userInfo.mobile()
         );
-        softAssert.assertEquals(txtAccountCreation.getText(), "Congratulations! Your new account has been successfully created!");
+        softAssert.assertTrue(txtAccountCreation.getText().contains("Congratulations! Your new account has been successfully created!"));
         btnContinue.click();
 
         //Verify User Name

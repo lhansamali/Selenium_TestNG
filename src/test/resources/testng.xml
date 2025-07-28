@@ -17,5 +17,10 @@
             <class name="tests.LoginTest"/>
         </classes>
     </test>
+    <test name="Contact Us">
+        <classes>
+            <class name="tests.ContactUsTest"/>
+        </classes>
+    </test>
 
 </suite>
