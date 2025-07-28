@@ -18,10 +18,12 @@ public class LoginPage extends BasePage {
     public static WebElement lblCredentialError;
 
 
+
     public LoginPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
     }
+
 
     public void login(String email, String password) {
         CommonFunctions.wait(driver, inputLoginEmail);

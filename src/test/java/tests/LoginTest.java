@@ -1,35 +1,30 @@
 package tests;
 
-import org.openqa.selenium.WebDriver;
 import org.commonmethods.CommonFunctions;
+import org.pages.HomePage;
 import org.pages.LoginPage;
 import org.pages.MainPage;
 import org.testdata.LoginUserData;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 
-import static org.pages.BasePage.BASE_URL;
-import static org.pages.BasePage.initiateBrowser;
 import static org.pages.LoginPage.lblCredentialError;
 import static org.pages.MainPage.*;
 
-public class LoginTest {
+public class LoginTest extends BaseTest {
 
     LoginPage loginPage;
-    WebDriver driver;
-    SoftAssert softAssert;
     MainPage mainPage;
+    HomePage homePage;
     String userEmail = LoginUserData.USER_EMAIL;
     String password = LoginUserData.PASSWORD;
 
     @BeforeMethod
     public void setUp() {
-        softAssert = new SoftAssert();
-        driver = initiateBrowser(BASE_URL);
         loginPage = new LoginPage(driver);
         mainPage = new MainPage(driver);
+        homePage=new HomePage(driver);
+        homePage.clickOnLoginSignUpLink();
     }
 
     @Test
@@ -54,11 +49,6 @@ public class LoginTest {
     public void verifyLogOut() {
         linkLoggedOut.click();
         softAssert.assertEquals(linkSignUpLogin.getText(), " Signup / Login");
-    }
-
-    @AfterMethod
-    public void tearDown() {
-        driver.quit();
     }
 
 }

@@ -6,7 +6,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 public class BasePage {
-    public static String BASE_URL = "https://www.automationexercise.com/login";
+    public static String BASE_URL = "https://www.automationexercise.com";
 
     protected static WebDriver driver;
 

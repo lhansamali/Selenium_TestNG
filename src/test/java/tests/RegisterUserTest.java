@@ -1,36 +1,35 @@
 package tests;
 
-import org.openqa.selenium.WebDriver;
+import org.commonmethods.CommonFunctions;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
-import org.commonmethods.CommonFunctions;
+import org.pages.HomePage;
 import org.pages.MainPage;
 import org.pages.RegisterPage;
 import org.testdata.LoginUserData;
-import org.testng.annotations.*;
-import org.testng.asserts.SoftAssert;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static org.pages.BasePage.BASE_URL;
 import static org.pages.MainPage.linkSignUpLogin;
 import static org.pages.RegisterPage.*;
 import static org.testdata.RegisterUserData.*;
 
-public class RegisterUserTest {
-    WebDriver driver;
+public class RegisterUserTest extends BaseTest{
     RegisterPage registerPage;
     MainPage mainPage;
-    SoftAssert softAssert;
+    HomePage homePage;
 
     @BeforeTest
     public void setUp() {
-        softAssert = new SoftAssert();
-        driver = initiateBrowser(BASE_URL);
         registerPage = new RegisterPage(driver);
         mainPage = new MainPage(driver);
+        homePage=new HomePage(driver);
+        homePage.clickOnLoginSignUpLink();
     }
 
     @Test(dataProvider = "RegisterUserData")
@@ -117,11 +116,6 @@ public class RegisterUserTest {
 
                 }
         };
-    }
-
-    @AfterTest
-    public void tearDown() {
-        driver.quit();
     }
 
 }
